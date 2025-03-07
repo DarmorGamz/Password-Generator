@@ -35,5 +35,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }} # Automatically provided by GitHub
-          publish_dir: ./dist # Directory where build output is (adjust if different, e.g., ./build or .)
-          publish_branch: gh-pages # Branch to deploy to (GitHub Pages will use this)
+          publish_dir: ./build # Directory where build output is (adjust if different, e.g., ./build or .)
+          publish_branch: master # Branch to deploy to (GitHub Pages will use this)
