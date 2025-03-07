@@ -1,0 +1,39 @@
+name: Build and Deploy to GitHub Pages
+
+# Trigger the workflow on push to the master branch
+on:
+  push:
+    branches:
+      - master
+
+# Jobs to run
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js (required if your project uses npm)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Use a recent Node.js version
+
+      # Step 3: Install dependencies (if your project has a package.json)
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Build the project (adjust this if your build command differs)
+      - name: Build
+        run: npm run build  # Assumes 'build' script exists in package.json
+
+      # Step 5: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Automatically provided by GitHub
+          publish_dir: ./dist # Directory where build output is (adjust if different, e.g., ./build or .)
+          publish_branch: gh-pages # Branch to deploy to (GitHub Pages will use this)
